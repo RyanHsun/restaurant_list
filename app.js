@@ -3,12 +3,13 @@ const express = require('express') // 載入 express
 const mongoose = require('mongoose') // 載入 mongoose
 const exphbs = require('express-handlebars') // 載入 expres-handlebars
 const restaurantList = require('./restaurant.json') // 載入 restaurant data
+const Restaurant = require('./models/restaurant') // 載入 Restaurant model
 
 const app = express()
 const port = 3000
 
 // 設定 mongoose 連線
-mongoose.connect('mongodb://localhost/todo_list', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb://localhost/restaurant_list', { useNewUrlParser: true, useUnifiedTopology: true })
 
 // 取得連線狀態，設定 db
 const db = mongoose.connection
@@ -26,9 +27,12 @@ app.set('view engine', 'hbs')
 // setting static files
 app.use(express.static('public'))
 
-// routes setting
+// 將路由改為從資料庫查找資料
 app.get('/', (req, res) => {
-  res.render('index', { restaurants: restaurantList.results })
+  Restaurant.find() // 取出 Restaurant model 裡的所有資料
+    .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
+    .then(restaurants => res.render('index', { restaurants })) // 將資料傳給 index 樣板
+    .catch(error => console.lgo(error)) // 錯誤處理
 })
 
 app.get('/search', (req, res) => {
