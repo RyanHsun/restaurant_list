@@ -1,7 +1,20 @@
 // server setting
-const express = require('express')
+const express = require('express') // 載入 express
+const mongoose = require('mongoose') // 載入 mongoose
 const app = express()
 const port = 3000
+
+// 設定 mongoose 連線
+mongoose.connect('mongodb://localhost/todo_list', { useNewUrlParser: true, useUnifiedTopology: true })
+
+// 取得連線狀態，設定 db
+const db = mongoose.connection
+db.on('error', () => {
+  console.log('mongodb error!')
+})
+db.once('open', () => {
+  console.log('mongodb connected!')
+})
 
 // require express-handlebars here
 const exphbs = require('express-handlebars')
