@@ -1,6 +1,9 @@
 // server setting
 const express = require('express') // 載入 express
 const mongoose = require('mongoose') // 載入 mongoose
+const exphbs = require('express-handlebars') // 載入 expres-handlebars
+const restaurantList = require('./restaurant.json') // 載入 restaurant data
+
 const app = express()
 const port = 3000
 
@@ -16,13 +19,9 @@ db.once('open', () => {
   console.log('mongodb connected!')
 })
 
-// require express-handlebars here
-const exphbs = require('express-handlebars')
-const restaurantList = require('./restaurant.json')
-
-// setting template engine
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
-app.set('view engine', 'handlebars')
+// hanldebars setting
+app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs'}))
+app.set('view engine', 'hbs')
 
 // setting static files
 app.use(express.static('public'))
