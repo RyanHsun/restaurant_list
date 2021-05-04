@@ -90,6 +90,11 @@ form.create-new * {
   margin-bottom: 10px;
 }
 
+.edit {
+  display: block;
+  text-align: right;
+}
+
 @media screen and (max-width: 992px) {
   
   .card img{

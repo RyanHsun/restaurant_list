@@ -2,6 +2,18 @@
 <div class="container">
   <div class="row">
     <div class="col-12 col-md-10 mx-auto">
+      <a class="edit" href="/restaurants/{{ restaurant._id }}/edit">重新編輯</a>
+
+      <p class="mb-1">
+        <span class="text-secondary">
+          <i class="fas fa-star fa-xs pr-2"></i>
+          評分：
+        </span>
+        <span class="badge badge-pill badge-danger font-weight-normal">
+          {{restaurant.rating}}
+          <i class="fas fa-star fa-xs"></i>
+        </span>
+      </p>
 
       <p class="mb-1">
         <span class="text-secondary">

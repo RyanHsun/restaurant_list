@@ -1,0 +1,15 @@
+<h1 class="title">編輯餐廳</h1>
+<form class="create-new" action="/restaurants/{{ restaurant._id }}/edit" method="POST">
+  <input type="text" placeholder="餐廳名稱" name="name" value="{{ restaurant.name }}">
+  <input type="text" placeholder="餐廳英文名稱" name="name_en" value="{{ restaurant.name_en }}">
+  <input type="text" placeholder="餐廳類別" name="category" value="{{ restaurant.category }}">
+  <input type="text" placeholder="餐廳照片" name="image" value="{{ restaurant.image }}">
+  <input type="text" placeholder="餐廳地址" name="location" value="{{ restaurant.location }}">
+  <input type="text" placeholder="餐廳電話" name="phone" value="{{ restaurant.phone }}">
+  <input type="text" placeholder="Google map 連結" name="google_map" value="{{ restaurant.google_map }}">
+  <input type="text" placeholder="餐廳評分" name="rating" value="{{ restaurant.rating }}">
+  <input type="text" placeholder="餐廳介紹" name="description" value="{{ restaurant.description }}">
+
+  <button type="submit">儲存</button>
+  <a href="/">返回</a>
+</form>
