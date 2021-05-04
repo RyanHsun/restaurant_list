@@ -33,6 +33,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 // 將路由改為從資料庫查找資料
 app.get('/', (req, res) => {
+  console.log(req)
   Restaurant.find() // 取出 Restaurant model 裡的所有資料
     .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
     .then(restaurants => res.render('index', { restaurants })) // 將資料傳給 index 樣板
@@ -61,6 +62,15 @@ app.post('/restaurants', (req, res) => {
     .catch(error => console.log(error))
 })
 
+// 設定餐廳詳細頁面的路由
+app.get('/restaurants/:id', (req, res) => {
+  const id = req.params.id
+  return Restaurant.findById(id)
+    .lean() // 用 lean() 將資料整理乾淨
+    .then((restaurant) => res.render('detail', { restaurant })) // 將資料傳給樣板引擎，透過hbs組裝頁面
+    .catch(error => console.log(error))
+})
+
 app.get('/search', (req, res) => {
   const keyword = req.query.keyword.trim()
   const restaurants = restaurantList.results.filter(restaurant =>
@@ -73,10 +83,10 @@ app.get('/search', (req, res) => {
   }
 })
 
-app.get('/restaurant/:id', (req, res) => {
-  const restaurant = restaurantList.results.find(restaurant => restaurant.id.toString() === req.params.id)
-  res.render('show', { restaurant: restaurant })
-})
+// app.get('/restaurant/:id', (req, res) => {
+//   const restaurant = restaurantList.results.find(restaurant => restaurant.id.toString() === req.params.id)
+//   res.render('show', { restaurant: restaurant })
+// })
 
 // server listening
 app.listen(port, () => {
