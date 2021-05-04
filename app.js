@@ -2,6 +2,7 @@
 const express = require('express') // 載入 express
 const mongoose = require('mongoose') // 載入 mongoose
 const exphbs = require('express-handlebars') // 載入 expres-handlebars
+const bodyParser = require('body-parser') // 載入 body parser
 const restaurantList = require('./restaurant.json') // 載入 restaurant data
 const Restaurant = require('./models/restaurant') // 載入 Restaurant model
 
@@ -21,11 +22,14 @@ db.once('open', () => {
 })
 
 // hanldebars setting
-app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs'}))
+app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
 
 // setting static files
 app.use(express.static('public'))
+
+// Body Parser 設定
+app.use(bodyParser.urlencoded({ extended: true }))
 
 // 將路由改為從資料庫查找資料
 app.get('/', (req, res) => {
@@ -33,6 +37,28 @@ app.get('/', (req, res) => {
     .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
     .then(restaurants => res.render('index', { restaurants })) // 將資料傳給 index 樣板
     .catch(error => console.lgo(error)) // 錯誤處理
+})
+
+// 設定新增餐廳頁面的路由
+app.get('/restaurants/new', (req, res) => {
+  res.render('new')
+})
+
+// 將新增的餐廳資料傳到資料庫
+app.post('/restaurants', (req, res) => {
+  const name = req.body.name
+  const name_en = req.body.name_en
+  const category = req.body.category
+  const image = req.body.image
+  const location = req.body.location
+  const phone = req.body.phone
+  const google_map = req.body.google_map
+  const rating = req.body.rating
+  const description = req.body.description
+
+  return Restaurant.create({ name, name_en, category, image, location, phone, google_map, rating, description })
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
 })
 
 app.get('/search', (req, res) => {

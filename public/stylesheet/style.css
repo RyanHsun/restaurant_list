@@ -69,13 +69,25 @@ header {
   font-size: 0.8rem;
 }
 
-.restaurant-show-title {
+.title {
   position: relative;
   top: -100px;
   color: white;
   text-align: center;
   font-size: 3rem;
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+form.create-new {
+  width: 500px;
+  margin: 20px auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+form.create-new * {
+  width: 100%;
+  margin-bottom: 10px;
 }
 
 @media screen and (max-width: 992px) {
