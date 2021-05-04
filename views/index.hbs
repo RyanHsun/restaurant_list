@@ -37,6 +37,10 @@
                 {{this.rating}}
                 <i class="fas fa-star fa-xs"></i>
               </span>
+              
+              <form action="/restaurants/{{ this._id }}/delete" method="POST">
+                <button class="delete" type="submit"><i class="fas fa-trash-alt"></i></button>
+              </form>
 
             </div>
           </div>

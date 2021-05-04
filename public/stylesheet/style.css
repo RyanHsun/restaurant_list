@@ -90,9 +90,44 @@ form.create-new * {
   margin-bottom: 10px;
 }
 
+.control-panel {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.control-panel * {
+  color: #333;
+  font-size: 24px;
+} 
+
+.control-panel *:hover,
+.card-columns .delete:hover {
+  color: #007bff;
+}
+
 .edit {
   display: block;
   text-align: right;
+}
+
+.delete {
+  background: no-repeat;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.card-body {
+  position: relative;
+}
+
+.card-columns .delete {
+    position: absolute;
+    display: inline;
+    bottom: 12px;
+    right: 10px;
+    font-size: 14px;
+    color: #aaa;
 }
 
 @media screen and (max-width: 992px) {
