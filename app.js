@@ -33,6 +33,13 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 // 將路由改為從資料庫查找資料
 app.get('/', (req, res) => {
+  Restaurant.find() 
+    .lean() 
+    .then(restaurants => res.render('index', { restaurants })) 
+    .catch(error => console.lgo(error)) 
+})
+
+app.get('/', (req, res) => {
   Restaurant.find() // 取出 Restaurant model 裡的所有資料
     .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
     .then(restaurants => res.render('index', { restaurants })) // 將資料傳給 index 樣板
@@ -117,17 +124,33 @@ app.post('/restaurants/:id/delete', (req, res) => {
     .catch(error => console.log(error))
 })
 
+// 設定關鍵字搜尋的路由
 app.get('/search', (req, res) => {
-  const keyword = req.query.keyword.trim()
-  const restaurants = restaurantList.results.filter(restaurant =>
-    restaurant.name.toLowerCase().includes(keyword.toLowerCase()) || restaurant.category.includes(keyword)
-  )
-  if (restaurants == 0) {
-    res.render('error', { keyword })
-  } else {
-    res.render('index', { restaurants, keyword })
-  }
+  // 將關鍵字轉為小寫格式
+  const keyword = req.query.keyword.toLowerCase().trim()
+
+  // 使用 find() 查詢名稱及類別中有符合關鍵字條件的資料
+  Restaurant.find({ $or: [
+      { name: { $regex: keyword, $options: 'i' }},
+      { category: { $regex: keyword, $options: 'i' }}
+    ]
+  })
+    .lean() 
+    .then(restaurants => res.render('index', { restaurants })) 
+    .catch(error => console.lgo(error)) 
 })
+
+// app.get('/search', (req, res) => {
+//   const keyword = req.query.keyword.trim()
+//   const restaurants = Restaurant.filter(restaurant =>
+//     restaurant.name.toLowerCase().includes(keyword.toLowerCase()) || restaurant.category.includes(keyword)
+//   )
+//   if (restaurants == 0) {
+//     res.render('error', { keyword })
+//   } else {
+//     res.render('index', { restaurants, keyword })
+//   }
+// })
 
 
 // server listening

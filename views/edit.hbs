@@ -1,15 +1,27 @@
 <h1 class="title">編輯餐廳</h1>
 <form class="create-new" action="/restaurants/{{ restaurant._id }}/edit" method="POST">
-  <input type="text" placeholder="餐廳名稱" name="name" value="{{ restaurant.name }}">
-  <input type="text" placeholder="餐廳英文名稱" name="name_en" value="{{ restaurant.name_en }}">
-  <input type="text" placeholder="餐廳類別" name="category" value="{{ restaurant.category }}">
-  <input type="text" placeholder="餐廳照片" name="image" value="{{ restaurant.image }}">
-  <input type="text" placeholder="餐廳地址" name="location" value="{{ restaurant.location }}">
-  <input type="text" placeholder="餐廳電話" name="phone" value="{{ restaurant.phone }}">
-  <input type="text" placeholder="Google map 連結" name="google_map" value="{{ restaurant.google_map }}">
-  <input type="text" placeholder="餐廳評分" name="rating" value="{{ restaurant.rating }}">
-  <input type="text" placeholder="餐廳介紹" name="description" value="{{ restaurant.description }}">
+  <label for="name">餐廳名稱：</label>
+  <input id="name" type="text" placeholder="餐廳名稱" name="name" value="{{ restaurant.name }}">
+  <label for="name_en">餐廳英文名稱：</label>
+  <input id="name_en" type="text" placeholder="餐廳英文名稱" name="name_en" value="{{ restaurant.name_en }}">
+  <label for="category">餐廳類別：</label>
+  <input id="category" type="text" placeholder="餐廳類別" name="category" value="{{ restaurant.category }}">
+  <label for="image">餐廳照片：</label>
+  <input id="image" type="text" placeholder="餐廳照片" name="image" value="{{ restaurant.image }}">
+  <label for="location">餐廳地址：</label>
+  <input id="location" type="text" placeholder="餐廳地址" name="location" value="{{ restaurant.location }}">
+  <label for="phone">餐廳電話：</label>
+  <input id="phone" type="text" placeholder="餐廳電話" name="phone" value="{{ restaurant.phone }}">
+  <label for="google_map">Google map 連結：</label>
+  <input id="google_map" type="text" placeholder="Google map 連結" name="google_map" value="{{ restaurant.google_map }}">
+  <label for="rating">餐廳評分：</label>
+  <input id="rating" type="text" placeholder="餐廳評分" name="rating" value="{{ restaurant.rating }}">
 
-  <button type="submit">儲存</button>
-  <a href="/">返回</a>
+  <label for="description">餐廳介紹：</label>
+  <textarea id="description" placeholder="餐廳介紹" name="description" rows="5" cols="33" value="{{ restaurant.description }}">{{ restaurant.description }}</textarea>
+
+  <div class="d-flex">
+    <a href="/" class="btn btn-outline-primary mr-2">返回</a>
+    <button type="submit" class="btn btn-primary">儲存</button>
+  </div>
 </form>

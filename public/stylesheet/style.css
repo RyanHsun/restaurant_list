@@ -89,6 +89,9 @@ form.create-new * {
   width: 100%;
   margin-bottom: 10px;
 }
+form.create-new label {
+  font-size: 14px;
+}
 
 .control-panel {
   display: flex;
@@ -122,13 +125,15 @@ form.create-new * {
 }
 
 .card-columns .delete {
-    position: absolute;
-    display: inline;
-    bottom: 12px;
-    right: 10px;
-    font-size: 14px;
-    color: #aaa;
+  position: absolute;
+  display: inline;
+  bottom: 12px;
+  right: 10px;
+  font-size: 14px;
+  color: #aaa;
 }
+
+
 
 @media screen and (max-width: 992px) {
   
