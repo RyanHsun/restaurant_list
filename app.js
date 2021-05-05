@@ -3,7 +3,6 @@ const express = require('express') // 載入 express
 const mongoose = require('mongoose') // 載入 mongoose
 const exphbs = require('express-handlebars') // 載入 expres-handlebars
 const bodyParser = require('body-parser') // 載入 body parser
-const restaurantList = require('./restaurant.json') // 載入 restaurant data
 const Restaurant = require('./models/restaurant') // 載入 Restaurant model
 
 const app = express()
@@ -139,19 +138,6 @@ app.get('/search', (req, res) => {
     .then(restaurants => res.render('index', { restaurants })) 
     .catch(error => console.lgo(error)) 
 })
-
-// app.get('/search', (req, res) => {
-//   const keyword = req.query.keyword.trim()
-//   const restaurants = Restaurant.filter(restaurant =>
-//     restaurant.name.toLowerCase().includes(keyword.toLowerCase()) || restaurant.category.includes(keyword)
-//   )
-//   if (restaurants == 0) {
-//     res.render('error', { keyword })
-//   } else {
-//     res.render('index', { restaurants, keyword })
-//   }
-// })
-
 
 // server listening
 app.listen(port, () => {

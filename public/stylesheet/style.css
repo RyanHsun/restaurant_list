@@ -2,11 +2,11 @@ header {
   overflow: hidden;
 }
 
-.navbar .navbar-brand {
+.navbar .navbar-brand,.create {
   color: #4592af;
 }
 
-.navbar .navbar-brand:hover {
+.navbar .navbar-brand:hover,.create:hover {
   color: #226089;
 }
 
@@ -31,8 +31,14 @@ header {
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
 }
 
-.search-bar .search-bar-inner h4 {
+.search-bar .search-bar-inner h4,
+.search-bar .search-bar-inner p {
   color: #9b4b4b;
+  margin: 0;
+}
+
+.search-category a{
+  font-size: 12px;
 }
 
 .form-control::placeholder {
@@ -43,6 +49,23 @@ header {
 .btn-major {
   background-color: #9b4b4b;
   color: white;
+}
+
+.btn-major:hover {
+  color: white;
+  filter: brightness(1.2);
+}
+
+.btn-outline-major {
+  border: 1px solid #9b4b4b;
+  background-color: white;
+  color: #9b4b4b;
+}
+
+.btn-outline-major:hover {
+  color: white;
+  background-color: #9b4b4b;
+  filter: brightness(1.2);
 }
 
 .form-control:focus {
@@ -98,14 +121,15 @@ form.create-new label {
   justify-content: flex-end;
 }
 
-.control-panel * {
+.detail .control-panel i {
   color: #333;
   font-size: 24px;
 } 
 
-.control-panel *:hover,
+.control-panel i:hover,
+.detail .control-panel i:hover,
 .card-columns .delete:hover {
-  color: #007bff;
+  color: #4592af;
 }
 
 .edit {
@@ -124,15 +148,34 @@ form.create-new label {
   position: relative;
 }
 
-.card-columns .delete {
-  position: absolute;
+.index .edit, 
+.index .delete-form {
+  /* position: absolute; */
   display: inline;
   bottom: 12px;
   right: 10px;
   font-size: 14px;
   color: #aaa;
 }
+.index .delete {
+  color: #aaa;
+  margin: 0;
+}
 
+.index .item {
+  position: relative;
+}
+.index .item:hover {
+  filter: brightness(1.15);
+}
+
+.index .control-panel {
+  display: inline-block;
+  position: absolute;
+  bottom: 32px;
+  right: 10px;
+  z-index: 1;
+}
 
 
 @media screen and (max-width: 992px) {
@@ -148,11 +191,17 @@ form.create-new label {
     font-size: 2rem;
   }
 }
-
+@media screen and (min-width: 576px) and (max-width:767px) {
+  .container {
+    max-width: 90%;
+  }
+}
 @media screen and (max-width: 575px) {
   
   .card img{
     height: auto;
   }
-  
+  .index .control-panel {
+    bottom: 4%;
+  }
 }

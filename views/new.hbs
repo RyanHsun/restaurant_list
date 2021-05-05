@@ -8,10 +8,10 @@
   <input type="text" placeholder="餐廳電話" name="phone">
   <input type="text" placeholder="Google map 連結" name="google_map">
   <input type="text" placeholder="餐廳評分" name="rating">
-  <input type="text" placeholder="餐廳介紹" name="description">
+  <textarea id="description" placeholder="餐廳介紹" name="description" rows="5" cols="33">{{ restaurant.description }}</textarea>
 
   <div class="d-flex">
-    <a href="/" class="btn btn-outline-primary mr-2">返回</a>
-    <button type="submit" class="btn btn-primary">確定新增</button>
+    <a href="/" class="btn btn-outline-major mr-2">返回</a>
+    <button type="submit" class="btn btn-major">確定新增</button>
   </div>
 </form>
