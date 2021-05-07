@@ -4,6 +4,7 @@ const mongoose = require('mongoose') // 載入 mongoose
 const exphbs = require('express-handlebars') // 載入 expres-handlebars
 const bodyParser = require('body-parser') // 載入 body parser
 const Restaurant = require('./models/restaurant') // 載入 Restaurant model
+const Category = require('./models/category') // 載入 category model
 
 const app = express()
 const port = 3000
@@ -32,22 +33,23 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 // 將路由改為從資料庫查找資料
 app.get('/', (req, res) => {
-  Restaurant.find() 
-    .lean() 
-    .then(restaurants => res.render('index', { restaurants })) 
-    .catch(error => console.lgo(error)) 
-})
-
-app.get('/', (req, res) => {
   Restaurant.find() // 取出 Restaurant model 裡的所有資料
     .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
-    .then(restaurants => res.render('index', { restaurants })) // 將資料傳給 index 樣板
-    .catch(error => console.lgo(error)) // 錯誤處理
+    .then((restaurants) => {
+      Category.find() 
+        .lean()
+        .then(categories => res.render('index', { restaurants, categories }))
+        .catch(error => console.log(error))
+    }) // 將資料傳給 index 樣板
+    .catch(error => console.log(error)) // 錯誤處理
 })
 
 // 設定新增餐廳頁面的路由
 app.get('/restaurants/new', (req, res) => {
-  res.render('new')
+  Category.find()
+    .lean()
+    .then(categories => res.render('new', { categories }))
+    .catch(error => console.lgo(error))
 })
 
 // 將新增的餐廳資料傳到資料庫
@@ -81,7 +83,12 @@ app.get('/restaurants/:id/edit', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
     .lean() 
-    .then((restaurant) => res.render('edit', { restaurant }))
+    .then((restaurant) => {
+      Category.find()
+        .lean()
+        .then(categories => res.render('edit', { restaurant, categories }))
+        .catch(error => console.log(error))
+    })
     .catch(error => console.log(error))
 })
 
@@ -118,7 +125,10 @@ app.post('/restaurants/:id/edit', (req, res) => {
 app.post('/restaurants/:id/delete', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
-    .then(restaurant => restaurant.remove())
+    .then(restaurant => {
+      // alert('ＯＫ？')
+      restaurant.remove()
+    })
     .then(() => res.redirect(`/`))
     .catch(error => console.log(error))
 })

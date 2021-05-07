@@ -2,7 +2,12 @@
 <form class="create-new" action="/restaurants" method="POST">
   <input type="text" placeholder="餐廳名稱" name="name">
   <input type="text" placeholder="餐廳英文名稱" name="name_en">
-  <input type="text" placeholder="餐廳類別" name="category">
+  <select name="category" id="category">
+    <option value="" disabled selected hidden>餐廳類別</option>
+    {{#each categories}}
+    <option value="{{this.name}}">{{this.name}}</option>
+    {{/each}}
+  </select>
   <input type="text" placeholder="餐廳照片" name="image">
   <input type="text" placeholder="餐廳地址" name="location">
   <input type="text" placeholder="餐廳電話" name="phone">

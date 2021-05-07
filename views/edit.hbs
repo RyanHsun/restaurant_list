@@ -1,24 +1,29 @@
 <h1 class="title">編輯餐廳</h1>
-<form class="create-new" action="/restaurants/{{ restaurant._id }}/edit" method="POST">
+<form class="create-new" action="/restaurants/{{restaurant._id}}/edit" method="POST">
   <label for="name">餐廳名稱：</label>
-  <input id="name" type="text" placeholder="餐廳名稱" name="name" value="{{ restaurant.name }}">
+  <input id="name" type="text" placeholder="餐廳名稱" name="name" value="{{restaurant.name}}">
   <label for="name_en">餐廳英文名稱：</label>
-  <input id="name_en" type="text" placeholder="餐廳英文名稱" name="name_en" value="{{ restaurant.name_en }}">
+  <input id="name_en" type="text" placeholder="餐廳英文名稱" name="name_en" value="{{restaurant.name_en}}">
   <label for="category">餐廳類別：</label>
-  <input id="category" type="text" placeholder="餐廳類別" name="category" value="{{ restaurant.category }}">
+  <select name="category" id="category">
+    <option value="" disabled selected hidden>{{restaurant.category}}</option>
+    {{#each categories}}
+    <option value="{{this.name}}">{{this.name}}</option>
+    {{/each}}
+  </select>
   <label for="image">餐廳照片：</label>
-  <input id="image" type="text" placeholder="餐廳照片" name="image" value="{{ restaurant.image }}">
+  <input id="image" type="text" placeholder="餐廳照片" name="image" value="{{restaurant.image}}">
   <label for="location">餐廳地址：</label>
-  <input id="location" type="text" placeholder="餐廳地址" name="location" value="{{ restaurant.location }}">
+  <input id="location" type="text" placeholder="餐廳地址" name="location" value="{{restaurant.location}}">
   <label for="phone">餐廳電話：</label>
-  <input id="phone" type="text" placeholder="餐廳電話" name="phone" value="{{ restaurant.phone }}">
+  <input id="phone" type="text" placeholder="餐廳電話" name="phone" value="{{restaurant.phone}}">
   <label for="google_map">Google map 連結：</label>
-  <input id="google_map" type="text" placeholder="Google map 連結" name="google_map" value="{{ restaurant.google_map }}">
+  <input id="google_map" type="text" placeholder="Google map 連結" name="google_map" value="{{restaurant.google_map}}">
   <label for="rating">餐廳評分：</label>
-  <input id="rating" type="text" placeholder="餐廳評分" name="rating" value="{{ restaurant.rating }}">
+  <input id="rating" type="text" placeholder="餐廳評分" name="rating" value="{{restaurant.rating}}">
 
   <label for="description">餐廳介紹：</label>
-  <textarea id="description" placeholder="餐廳介紹" name="description" rows="5" cols="33" value="{{ restaurant.description }}">{{ restaurant.description }}</textarea>
+  <textarea id="description" placeholder="餐廳介紹" name="description" rows="5" cols="33" value="{{restaurant.descriptio }}">{{restaurant.description}}</textarea>
 
   <div class="d-flex">
     <a href="/" class="btn btn-outline-major mr-2">返回</a>

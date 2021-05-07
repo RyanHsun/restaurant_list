@@ -41,6 +41,10 @@ header {
   font-size: 12px;
 }
 
+.search-category a:not(:last-child) {
+  margin-right: 0.5rem;
+}
+
 .form-control::placeholder {
   color: #aaaaaa;
   font-size: 0.8rem;
@@ -112,8 +116,17 @@ form.create-new * {
   width: 100%;
   margin-bottom: 10px;
 }
+
 form.create-new label {
   font-size: 14px;
+}
+
+form.create-new #category {
+  height: 32px;
+}
+
+form.create-new #category option:first-child {
+  color: #666;
 }
 
 .control-panel {

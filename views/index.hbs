@@ -6,11 +6,9 @@
         <div class="search-category d-flex justify-content-between align-items-center mt-2 mb-2">
           <h4 class="">尋找餐廳：</h4>
           <div class="d-none d-sm-flex">
-            <a class="btn btn-major mr-2" href="/search?keyword=中東料理">中東料理</a>
-            <a class="btn btn-major mr-2" href="/search?keyword=咖啡">咖啡</a>
-            <a class="btn btn-major mr-2" href="/search?keyword=美式">美式</a>
-            <a class="btn btn-major mr-2" href="/search?keyword=義式餐廳">義式餐廳</a>
-            <a class="btn btn-major" href="/search?keyword=酒吧">酒吧</a>
+            {{#each categories}}
+              <a class="btn btn-major" href="/search?keyword={{this.name}}">{{this.name}}</a>
+            {{/each}}
           </div>
 
           <div class="dropdown d-block d-sm-none">
@@ -19,11 +17,9 @@
               依餐廳類別尋找：
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="/search?keyword=中東料理">中東料理</a>
-              <a class="dropdown-item" href="/search?keyword=咖啡">咖啡</a>
-              <a class="dropdown-item" href="/search?keyword=美式">美式</a>
-              <a class="dropdown-item" href="/search?keyword=義式餐廳">義式餐廳</a>
-              <a class="dropdown-item" href="/search?keyword=酒吧">酒吧</a>
+              {{#each categories}}
+                <a class="dropdown-item" href="/search?keyword={{this.name}}">{{this.name}}</a>
+              {{/each}}
             </div>
           </div>
         </div>
