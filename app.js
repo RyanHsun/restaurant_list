@@ -54,18 +54,9 @@ app.get('/restaurants/new', (req, res) => {
 
 // 將新增的餐廳資料傳到資料庫
 app.post('/restaurants', (req, res) => {
-  const name = req.body.name
-  const name_en = req.body.name_en
-  const category = req.body.category
-  const image = req.body.image
-  const location = req.body.location
-  const phone = req.body.phone
-  const google_map = req.body.google_map
-  const rating = req.body.rating
-  const description = req.body.description
-
-  return Restaurant.create({ name, name_en, category, image, location, phone, google_map, rating, description })
-    .then(() => res.redirect('/'))
+  const restaurant = req.body // 從 req.body 拿出表單裡的所有資料，並存放在 restaurant
+  return Restaurant.create(restaurant) // 透過 create() 將資料存入資料庫
+    .then(() => res.redirect('/')) // 新增新增完成後導回首頁
     .catch(error => console.log(error))
 })
 
@@ -73,8 +64,8 @@ app.post('/restaurants', (req, res) => {
 app.get('/restaurants/:id', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
-    .lean() // 用 lean() 將資料整理乾淨
-    .then((restaurant) => res.render('detail', { restaurant })) // 將資料傳給樣板引擎，透過hbs組裝頁面
+    .lean()
+    .then((restaurant) => res.render('detail', { restaurant }))
     .catch(error => console.log(error))
 })
 
@@ -95,26 +86,18 @@ app.get('/restaurants/:id/edit', (req, res) => {
 // 將重新編輯完後的資料更新至資料庫
 app.post('/restaurants/:id/edit', (req, res) => {
   const id = req.params.id
-  const name = req.body.name
-  const name_en = req.body.name_en
-  const category = req.body.category
-  const image = req.body.image
-  const location = req.body.location
-  const phone = req.body.phone
-  const google_map = req.body.google_map
-  const rating = req.body.rating
-  const description = req.body.description
   return Restaurant.findById(id)
     .then(restaurant => {
-      restaurant.name = name,
-      restaurant.name_en = name_en,
-      restaurant.category = category,
-      restaurant.image = image,
-      restaurant.location = location,
-      restaurant.phone = phone,
-      restaurant.google_map = google_map,
-      restaurant.rating = rating,
-      restaurant.description = description
+      // 為使語法更精簡化，移除原本放在外面的 const 宣告，直接在內層分配 req.body
+      restaurant.name = req.body.name,
+      restaurant.name_en = req.body.name_en,
+      restaurant.category = req.body.category,
+      restaurant.image = req.body.image,
+      restaurant.location = req.body.location,
+      restaurant.phone = req.body.phone,
+      restaurant.google_map = req.body.google_map,
+      restaurant.rating = req.body.rating,
+      restaurant.description = req.body.description
       return restaurant.save()
     })
     .then(() => res.redirect(`/restaurants/${id}`))
@@ -143,13 +126,18 @@ app.get('/search', (req, res) => {
   })
     .lean() 
     .then(restaurants => {
-      if (restaurants == 0) {
-        // 找不到該關鍵字顯示錯誤提示，使用 error 模板
-        res.render('error', { keyword })
-      } else {
-        // 該關鍵字有找到符合的資料顯示結果，並在搜尋列上放上使用者輸入的關鍵字方便修改
-        res.render('index', { restaurants, keyword })
-      }
+      Category.find() // 導入餐廳類別資料，讓點擊搜尋按鈕後指向的模板可以抓到值
+        .lean()
+        .then(categories => {
+          if (restaurants == 0) {
+            // 找不到該關鍵字顯示錯誤提示，使用 error 模板
+            res.render('error', { categories, keyword })
+          } else {
+            // 該關鍵字有找到符合的資料顯示結果，並在搜尋列上放上使用者輸入的關鍵字方便修改
+            res.render('index', { restaurants, categories, keyword })
+          }
+        })
+      
     }) 
     .catch(error => console.lgo(error)) 
 })

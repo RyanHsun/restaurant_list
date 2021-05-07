@@ -3,7 +3,27 @@
   <div class="search-bar-outer">
     <div class="search-bar-inner">
       <form action="/search">
-        <h4 class="mb-2">尋找餐廳：</h4>
+        <div class="search-category d-flex justify-content-between align-items-center mt-2 mb-2">
+          <h4 class="">尋找餐廳：</h4>
+          <div class="d-none d-sm-flex">
+            {{#each categories}}
+            <a class="btn btn-major" href="/search?keyword={{this.name}}">{{this.name}}</a>
+            {{/each}}
+          </div>
+        
+          <div class="dropdown d-block d-sm-none">
+            <button class="btn btn-major dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              依餐廳類別尋找：
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              {{#each categories}}
+              <a class="dropdown-item" href="/search?keyword={{this.name}}">{{this.name}}</a>
+              {{/each}}
+            </div>
+          </div>
+        </div>
+        
         <div class="input-group">
           <input type="text" name="keyword" class="form-control" placeholder="輸入餐廳、分類" aria-label="Restaurant Name..."
             value="{{keyword}}" aria-describedby="search-button">

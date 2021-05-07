@@ -6,7 +6,7 @@
   <input id="name_en" type="text" placeholder="餐廳英文名稱" name="name_en" value="{{restaurant.name_en}}">
   <label for="category">餐廳類別：</label>
   <select name="category" id="category">
-    <option value="" disabled selected hidden>{{restaurant.category}}</option>
+    <option value="{{restaurant.category}}" selected hidden>{{restaurant.category}}</option>
     {{#each categories}}
     <option value="{{this.name}}">{{this.name}}</option>
     {{/each}}
