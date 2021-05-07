@@ -21,14 +21,14 @@ db.once('open', () => {
   console.log('mongodb connected!')
 })
 
-// hanldebars setting
+// 設定 hanldebars 模板
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
 
-// setting static files
+// 設定可以使用靜態檔案路徑
 app.use(express.static('public'))
 
-// Body Parser 設定
+// 設定 Body Parser
 app.use(bodyParser.urlencoded({ extended: true }))
 
 // 將路由改為從資料庫查找資料
@@ -125,10 +125,7 @@ app.post('/restaurants/:id/edit', (req, res) => {
 app.post('/restaurants/:id/delete', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
-    .then(restaurant => {
-      // alert('ＯＫ？')
-      restaurant.remove()
-    })
+    .then(restaurant => restaurant.remove())
     .then(() => res.redirect(`/`))
     .catch(error => console.log(error))
 })
@@ -138,18 +135,26 @@ app.get('/search', (req, res) => {
   // 將關鍵字轉為小寫格式
   const keyword = req.query.keyword.toLowerCase().trim()
 
-  // 使用 find() 查詢名稱及類別中有符合關鍵字條件的資料
+  // 使用 find() 查詢名稱及類別中有符合關鍵字條件的資料，透過 $or 判斷餐廳名稱或是餐廳類別是否有符合條件
   Restaurant.find({ $or: [
       { name: { $regex: keyword, $options: 'i' }},
       { category: { $regex: keyword, $options: 'i' }}
     ]
   })
     .lean() 
-    .then(restaurants => res.render('index', { restaurants })) 
+    .then(restaurants => {
+      if (restaurants == 0) {
+        // 找不到該關鍵字顯示錯誤提示，使用 error 模板
+        res.render('error', { keyword })
+      } else {
+        // 該關鍵字有找到符合的資料顯示結果，並在搜尋列上放上使用者輸入的關鍵字方便修改
+        res.render('index', { restaurants, keyword })
+      }
+    }) 
     .catch(error => console.lgo(error)) 
 })
 
-// server listening
+// 設定伺服器監聽
 app.listen(port, () => {
   console.log(`Server is listening on http://localhost:${port}`)
 })
