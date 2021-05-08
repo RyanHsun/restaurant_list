@@ -1,17 +1,9 @@
-const mongoose = require('mongoose') // 載入 mongoose
 const Restaurant = require('../restaurant')
 const Category = require('../category')
 const restaurantList = require('../../restaurant.json') // 載入 restaurant JSON 資料
 const categoryList = require('../../category.json') // 載入 restaurant category JSON 資料
 
-// 設定 mongoose 連線
-mongoose.connect('mongodb://localhost/restaurant_list', { useNewUrlParser: true, useUnifiedTopology: true })
-
-// 取得連線狀態，設定 db
-const db = mongoose.connection
-db.on('error', () => {
-  console.log('mongodb error!')
-})
+const db = require('../../config/mongoose') // 載入 mongoose
 
 db.once('open', (req, res) => {
   console.log('mongodb connected!')
