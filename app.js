@@ -3,6 +3,7 @@ const express = require('express') // 載入 express
 const mongoose = require('mongoose') // 載入 mongoose
 const exphbs = require('express-handlebars') // 載入 expres-handlebars
 const bodyParser = require('body-parser') // 載入 body parser
+const methodOverride = require('method-override') // 載入 method-override
 const Restaurant = require('./models/restaurant') // 載入 Restaurant model
 const Category = require('./models/category') // 載入 category model
 
@@ -30,6 +31,9 @@ app.use(express.static('public'))
 
 // 設定 Body Parser
 app.use(bodyParser.urlencoded({ extended: true }))
+
+// 設定每一筆請求都會經過 methodOverride 進行前置處理
+app.use(methodOverride('_method'))
 
 // 將路由改為從資料庫查找資料
 app.get('/', (req, res) => {
@@ -84,7 +88,7 @@ app.get('/restaurants/:id/edit', (req, res) => {
 })
 
 // 將重新編輯完後的資料更新至資料庫
-app.post('/restaurants/:id/edit', (req, res) => {
+app.put('/restaurants/:id', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
     .then(restaurant => {
@@ -105,7 +109,7 @@ app.post('/restaurants/:id/edit', (req, res) => {
 })
 
 // 設定將特定資料刪除的路由
-app.post('/restaurants/:id/delete', (req, res) => {
+app.delete('/restaurants/:id', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
     .then(restaurant => restaurant.remove())
