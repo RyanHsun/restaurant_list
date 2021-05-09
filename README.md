@@ -1,5 +1,5 @@
 # 我的餐廳清單 - My Restaurant List
-一個使用 Node.js 的框架 Express 打造的餐廳清單網站專案，
+一個使用 Node.js 的框架 Express 打造的餐廳清單網站專案。
 
 ## 功能描述 - Features
 * 餐廳資訊列表，在列表中顯示所有餐廳的名稱、類別、評分及店內照片。
@@ -9,6 +9,7 @@
 * 不喜歡的餐廳(可能換廚師變得不好吃XD)可以透過垃圾桶按鈕點擊刪除該餐廳。
 * 可以使用關鍵字或餐廳類別尋找餐廳，如果找不到符合的資料會顯示提示資訊，輸入大小寫皆可查詢到，例：PIzzA。
 * 在尋找餐廳時可以直接點擊餐廳類別來尋找，加快找到想要的餐廳。
+* 可以透過餐廳排序功能，依照所選擇的排序目的切換餐廳列表的排列。
 
 ## 專案畫面
 ![RestaurantList-Demo](https://raw.githubusercontent.com/RyanHsun/restaurant_list/master/app-demo.png "Restaurant List - Demo") 
@@ -17,6 +18,7 @@
 * 開發環境：Node.js v10.15.0
 * 開發框架：Express v4.17.1
 * 框架模板：handlebars v5.3.0
+* 模板套件：handlebars-helpers v0.10.0
 * 中介軟體：body-parser v1.19.0
 * 資料庫：  mongoDB v4.2.13
 * 物件模型工具：mongoose v5.12.7

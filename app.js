@@ -3,6 +3,8 @@ const express = require('express') // 載入 express
 const exphbs = require('express-handlebars') // 載入 expres-handlebars
 const bodyParser = require('body-parser') // 載入 body parser
 const methodOverride = require('method-override') // 載入 method-override
+const helpers = require('handlebars-helpers')()
+
 
 const routes = require('./routes') // 引用路由器
 require('./config/mongoose') // 載入 mongoose

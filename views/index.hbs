@@ -40,6 +40,23 @@
 <div class="container mt-5 index">
   <div class="row">
     <div class="col-md-10 col-12 mx-auto">
+      <form id="sort" action="/sort">
+        <div class="input-group">
+          <select class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon" name="mode" id="mode">
+            <option value="{{sortMode}}" disabled selected hidden>使用排序顯示</option>
+            <option value="name" {{#if (eq sortMode 'name' )}}selected{{/if}}>依餐廳名稱 A - Z</option>
+            <option value="-name" {{#if (eq sortMode '-name' )}}selected{{/if}}>依餐廳名稱 Z - A</option>
+            <option value="rating" {{#if (eq sortMode 'rating' )}}selected{{/if}}>依餐廳評分 ↑</option>
+            <option value="-rating" {{#if (eq sortMode '-rating' )}}selected{{/if}}>依餐廳評分 ↓</option>
+            <option value="category" {{#if (eq sortMode 'category' )}}selected{{/if}}>依餐廳類別</option>
+            <option value="_id" {{#if (eq sortMode '_id' )}}selected{{/if}}>依新增時間</option>
+          </select>
+          <div class="input-group-append">
+            <button class="btn btn-major" type="submit">排序</button>
+          </div>
+        </div>
+      </form>
+      
       <div class="items card-columns">
         {{#each restaurants}}
         <div class="item mb-3">

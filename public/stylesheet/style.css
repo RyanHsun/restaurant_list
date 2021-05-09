@@ -190,6 +190,14 @@ form.create-new #category option:first-child {
   z-index: 1;
 }
 
+#sort {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+#sort .input-group {
+  max-width: 295px;
+}
 
 @media screen and (max-width: 992px) {
   

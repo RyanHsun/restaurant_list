@@ -4,7 +4,7 @@ const router = express.Router()
 const Restaurant = require('../../models/restaurant') // 引用 Restaurant model
 const Category = require('../../models/category') // 引用 Restaurant model
 
-// 將路由改為從資料庫查找資料
+// 設定路由從資料庫查找資料
 router.get('/', (req, res) => {
   Restaurant.find() // 取出 Restaurant model 裡的所有資料
     .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
@@ -12,6 +12,21 @@ router.get('/', (req, res) => {
       Category.find()
         .lean()
         .then(categories => res.render('index', { restaurants, categories }))
+        .catch(error => console.log(error))
+    }) // 將資料傳給 index 樣板
+    .catch(error => console.log(error)) // 錯誤處理
+})
+
+// 設定餐廳列表的排序功能
+router.get('/sort', (req, res) => {
+  const sortMode = req.query.mode // 取得排序的值
+  Restaurant.find() // 取出 Restaurant model 裡的所有資料
+    .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
+    .sort(sortMode) // 透過 sort() 排序
+    .then((restaurants) => {
+      Category.find()
+        .lean()
+        .then(categories => res.render('index', { restaurants, categories, sortMode }))
         .catch(error => console.log(error))
     }) // 將資料傳給 index 樣板
     .catch(error => console.log(error)) // 錯誤處理
