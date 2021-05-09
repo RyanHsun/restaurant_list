@@ -139,10 +139,11 @@ form.create-new #category option:first-child {
   font-size: 24px;
 } 
 
-.control-panel i:hover,
-.detail .control-panel i:hover,
-.card-columns .delete:hover {
+.control-panel i:hover{
   color: #4592af;
+}
+.control-panel .delete i:hover {
+  color: #be0a0a;
 }
 
 .edit {
@@ -198,6 +199,8 @@ form.create-new #category option:first-child {
 #sort .input-group {
   max-width: 295px;
 }
+
+
 
 @media screen and (max-width: 992px) {
   
