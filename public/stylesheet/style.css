@@ -177,6 +177,7 @@ form.create-new #category option:first-child {
 }
 
 .index .item {
+  width: 30%;
   position: relative;
 }
 .index .item:hover {
@@ -197,7 +198,7 @@ form.create-new #category option:first-child {
   margin-bottom: 20px;
 }
 #sort .input-group {
-  max-width: 295px;
+  max-width: 200px;
 }
 
 
@@ -221,11 +222,13 @@ form.create-new #category option:first-child {
   }
 }
 @media screen and (max-width: 575px) {
-  
+  .index .item {
+    width: 100%;
+  }
   .card img{
     height: auto;
   }
   .index .control-panel {
-    bottom: 4%;
+    bottom: 8%;
   }
 }

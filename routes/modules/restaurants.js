@@ -13,7 +13,7 @@ router.get('/new', (req, res) => {
 })
 
 // 將新增的餐廳資料傳到資料庫
-router.post('', (req, res) => {
+router.post('/', (req, res) => {
   const restaurant = req.body // 從 req.body 拿出表單裡的所有資料，並存放在 restaurant
   return Restaurant.create(restaurant) // 透過 create() 將資料存入資料庫
     .then(() => res.redirect('/')) // 新增新增完成後導回首頁
